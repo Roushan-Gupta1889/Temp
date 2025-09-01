@@ -1,0 +1,39 @@
+
+# googleplay
+# appstore
+<div class="mt-3">
+                        <img src="https://www.your-space.in/_next/static/media/appstore.8f786373.svg" alt="App Store"
+                            class="img-fluid mb-2">
+                        <img src="https://www.your-space.in/_next/static/media/googleplay.48e6ecff.svg" alt="Google Play"
+                            class="img-fluid">
+                    </div>
+
+
+
+
+// Load PG data from JSON
+        async function loadPGData() {
+            try {
+                // Fetch the JSON file (must be inside your project folder, e.g. /pgs_100_diverse.json)
+                const response = await fetch("pgs_100_diverse.json");
+                const sampleData = await response.json();
+
+                allPGs = sampleData;
+                filteredPGs = [...allPGs];
+
+                // Apply initial filters and render
+                applyFilters();
+
+            } catch (error) {
+                console.error('Error loading PG data:', error);
+                showToast('Error loading PG data. Please try again later.', true);
+                pgCardsContainer.innerHTML = `
+            <div class="no-results">
+                <i class="bi bi-exclamation-triangle display-4 text-danger"></i>
+                <h3 class="mt-3">Unable to load PG listings</h3>
+                <p class="text-muted">Please try refreshing the page or check your connection.</p>
+                <button class="btn btn-primary mt-2" onclick="loadPGData()">Try Again</button>
+            </div>
+        `;
+            }
+        }
